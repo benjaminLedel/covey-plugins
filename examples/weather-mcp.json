@@ -1,0 +1,20 @@
+{
+  "_comment": "An MCP entry, for comparison with redmine.json. NOT part of the catalogue — the build reads plugins/ only. Note what makes MCP different: the artefact names an endpoint, so installing it opens an organisation's egress to that host. Say which host in your pull request.",
+  "name": "weather",
+  "label": "Weather MCP",
+  "description": "Forecasts and historical observations as agent tools, through an MCP server.",
+  "category": "web",
+  "kind": "mcp",
+  "publisher": "example-gmbh",
+  "homepage": "https://github.com/example-gmbh/covey-weather-mcp",
+  "license": "Apache-2.0",
+  "versions": [
+    {
+      "version": "0.3.1",
+      "url": "https://raw.githubusercontent.com/example-gmbh/covey-weather-mcp/v0.3.1/covey/weather.json",
+      "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+      "covey_min_version": "0.4.0",
+      "notes": "Endpoint moved to /v1."
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+# Most issues people bring here belong somewhere else: a plugin's bugs belong to
+# its publisher, and Covey's belong to Covey. Saying so up front spares both
+# sides a round trip.
+blank_issues_enabled: true
+contact_links:
+  - name: A bug in a listed plugin
+    url: https://github.com/benjaminLedel/covey-plugins/blob/main/README.md#trust
+    about: >-
+      Plugins are maintained by their publishers, not here. Open the issue in the
+      repository named as the plugin's homepage in its catalogue entry.
+  - name: A bug in Covey itself
+    url: https://github.com/benjaminLedel/covey/issues
+    about: The platform that reads this catalogue lives over there.
+  - name: A plugin that behaves maliciously
+    url: https://github.com/benjaminLedel/covey-plugins/blob/main/SECURITY.md
+    about: Read this first if disclosing it publicly would put installations at risk.

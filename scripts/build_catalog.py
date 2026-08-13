@@ -31,6 +31,7 @@ import urllib.request
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 PLUGINS = ROOT / "plugins"
 SCHEMA = ROOT / "schema" / "entry.schema.json"
+CATALOG_SCHEMA = ROOT / "schema" / "catalog.schema.json"
 CATALOG = ROOT / "catalog.json"
 
 SCHEMA_VERSION = 1
@@ -73,6 +74,30 @@ def validate_schema(entries: list[dict], problems: Problems) -> None:
         for err in sorted(validator.iter_errors(payload), key=lambda e: list(e.path)):
             where = "/".join(str(p) for p in err.path) or "(root)"
             problems.add(entry["_file"].name, f"{where}: {err.message}")
+
+
+def validate_catalog(catalog: dict, problems: Problems) -> None:
+    """Check the assembled catalogue against the schema consumers are told to expect.
+
+    The entries were validated one by one already — this checks the envelope,
+    and it keeps catalog.schema.json honest. A schema that is published but
+    never checked drifts away from what is actually served, and the people who
+    find out are the ones writing readers against it.
+    """
+    try:
+        import jsonschema
+        from referencing import Registry, Resource
+    except ImportError:
+        print("note: jsonschema/referencing not installed — skipping catalogue "
+              "schema validation (pip install jsonschema referencing)", file=sys.stderr)
+        return
+    entry = Resource.from_contents(json.loads(SCHEMA.read_text(encoding="utf-8")))
+    registry = Registry().with_resource("entry.schema.json", entry)
+    schema = json.loads(CATALOG_SCHEMA.read_text(encoding="utf-8"))
+    validator = jsonschema.Draft202012Validator(schema, registry=registry)
+    for err in validator.iter_errors(catalog):
+        where = "/".join(str(p) for p in err.path) or "(root)"
+        problems.add("catalog.json", f"{where}: {err.message}")
 
 
 def validate_cross(entries: list[dict], problems: Problems) -> None:
@@ -183,13 +208,15 @@ def main() -> int:
     if args.verify:
         verify_artefacts(entries, problems)
 
+    catalog = build(entries)
+    validate_catalog(catalog, problems)
+
     if problems:
         print(f"{len(problems)} problem(s):", file=sys.stderr)
         for p in problems:
             print(f"  {p}", file=sys.stderr)
         return 1
 
-    catalog = build(entries)
     rendered = json.dumps(catalog, indent=2, ensure_ascii=False) + "\n"
 
     if args.check:

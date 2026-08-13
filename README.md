@@ -86,8 +86,19 @@ Report a plugin that misbehaves by opening an issue. An entry can be withdrawn f
 | `plugins/` | one entry file per plugin — the only place a pull request normally touches |
 | `catalog.json` | generated from `plugins/` by CI; do not edit |
 | `schema/entry.schema.json` | the entry schema, also what CI validates against |
+| `schema/catalog.schema.json` | the shape of the generated catalogue, for anyone writing a reader or serving their own |
 | `scripts/build_catalog.py` | validation and catalogue assembly (also runnable locally) |
-| `examples/` | a complete example entry, excluded from the catalogue |
+| `examples/` | complete example entries, one manifest and one MCP, excluded from the catalogue |
+| [`SECURITY.md`](SECURITY.md) | reporting, and what withdrawing a plugin does and does not do |
+
+Running the checks locally needs Python 3 and two packages:
+
+```sh
+pip install jsonschema referencing
+python3 scripts/build_catalog.py --verify
+```
+
+Without them the script still runs and still builds the catalogue — it says which checks it skipped rather than passing quietly.
 
 ## Licence
 

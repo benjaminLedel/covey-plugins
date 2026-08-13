@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/benjaminLedel/covey-plugins/main/schema/catalog.schema.json",
+  "title": "Covey plugin catalogue",
+  "description": "The generated file a Covey instance fetches from COVEY_MARKETPLACE_URL. Assembled by CI from the entries under plugins/ — do not edit by hand. Published here so that anyone serving their own catalogue can check its shape against the same definition.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "generated_at", "plugins"],
+  "properties": {
+    "schema": {
+      "type": "integer",
+      "const": 1,
+      "description": "Format version of the catalogue itself. It changes only on a breaking change; an instance that does not know the version must ignore the catalogue rather than guess at it."
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When CI assembled this file (UTC). Informational — an instance decides staleness by its own fetch, not by this."
+    },
+    "plugins": {
+      "type": "array",
+      "description": "Every entry from plugins/, sorted by name.",
+      "items": { "$ref": "entry.schema.json" }
+    }
+  }
+}

@@ -29,7 +29,7 @@ jobs:
         with:
           python-version: "3.12"
 
-      - run: pip install --quiet jsonschema
+      - run: pip install --quiet jsonschema referencing
 
       # --check compares the plugin list and ignores generated_at, which moves
       # on every run — an otherwise identical catalogue must not produce a
