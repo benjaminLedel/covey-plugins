@@ -198,11 +198,23 @@ def main() -> int:
                     help="fetch every artefact and check its digest (needs network)")
     ap.add_argument("--check", action="store_true",
                     help="do not write catalog.json; fail if it is out of date")
+    ap.add_argument("--urls", action="store_true",
+                    help="print every artefact URL, one per line, and do nothing else")
     ap.add_argument("--out", type=pathlib.Path, default=CATALOG)
     args = ap.parse_args()
 
     problems = Problems()
     entries = load_entries(problems)
+
+    # --urls exists so that CI can loop over the artefacts without a second
+    # implementation of "where do the artefacts live" in shell.
+    if args.urls:
+        for entry in entries:
+            for v in entry.get("versions") or []:
+                if url := v.get("url"):
+                    print(url)
+        return 1 if problems else 0
+
     validate_schema(entries, problems)
     validate_cross(entries, problems)
     if args.verify:

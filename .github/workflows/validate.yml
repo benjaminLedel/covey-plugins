@@ -65,14 +65,7 @@ jobs:
         if: steps.covey.outputs.available == 'true'
         run: |
           set -euo pipefail
-          urls=$(python3 - <<'PY'
-import glob, json
-for f in sorted(glob.glob("plugins/*.json")):
-    entry = json.load(open(f))
-    for v in entry.get("versions") or []:
-        print(v["url"])
-PY
-)
+          urls=$(python3 scripts/build_catalog.py --urls)
           fail=0
           for url in $urls; do
             curl -sSL -o /tmp/artefact.json "$url"
