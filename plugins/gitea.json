@@ -1,0 +1,19 @@
+{
+  "name": "gitea",
+  "label": "Gitea / Forgejo",
+  "description": "Self-hosted git forge: find issues and pull requests, read them, comment, label and close.",
+  "category": "code",
+  "kind": "custom",
+  "publisher": "covey",
+  "homepage": "https://github.com/benjaminLedel/covey-plugin-pack",
+  "license": "MIT",
+  "versions": [
+    {
+      "version": "0.1.0",
+      "url": "https://raw.githubusercontent.com/benjaminLedel/covey-plugin-pack/v0.1.0/plugins/gitea.json",
+      "sha256": "f4ddabc4d18566a83a8a8d539c5b9006d0762b65176ea51f4213364af4c1e898",
+      "covey_min_version": "0.4.0",
+      "notes": "First release. Written from the published API docs, not yet exercised against a live system."
+    }
+  ]
+}

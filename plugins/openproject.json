@@ -1,0 +1,19 @@
+{
+  "name": "openproject",
+  "label": "OpenProject",
+  "description": "Project management: find work packages, read them, comment and move them through their status.",
+  "category": "ticketing",
+  "kind": "custom",
+  "publisher": "covey",
+  "homepage": "https://github.com/benjaminLedel/covey-plugin-pack",
+  "license": "MIT",
+  "versions": [
+    {
+      "version": "0.1.0",
+      "url": "https://raw.githubusercontent.com/benjaminLedel/covey-plugin-pack/v0.1.0/plugins/openproject.json",
+      "sha256": "4fb8a965d0b632adb9ce3edbcc9014d041b36e7187fbd50c7262573eff01f33f",
+      "covey_min_version": "0.4.0",
+      "notes": "First release. Written from the published API docs, not yet exercised against a live system."
+    }
+  ]
+}

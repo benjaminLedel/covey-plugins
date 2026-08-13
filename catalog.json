@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated_at": "2026-08-13T09:06:55Z",
+  "generated_at": "2026-08-13T11:20:59Z",
   "plugins": [
     {
       "name": "browser",
@@ -36,6 +36,25 @@
       "builtin_since": "0.1.0"
     },
     {
+      "name": "gitea",
+      "label": "Gitea / Forgejo",
+      "description": "Self-hosted git forge: find issues and pull requests, read them, comment, label and close.",
+      "category": "code",
+      "kind": "custom",
+      "publisher": "covey",
+      "homepage": "https://github.com/benjaminLedel/covey-plugin-pack",
+      "license": "MIT",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "url": "https://raw.githubusercontent.com/benjaminLedel/covey-plugin-pack/v0.1.0/plugins/gitea.json",
+          "sha256": "f4ddabc4d18566a83a8a8d539c5b9006d0762b65176ea51f4213364af4c1e898",
+          "covey_min_version": "0.4.0",
+          "notes": "First release. Written from the published API docs, not yet exercised against a live system."
+        }
+      ]
+    },
+    {
       "name": "github",
       "label": "GitHub",
       "description": "Issues and pull requests as the working set: check out, fix, open a pull request, diagnose red Actions runs, review others' work.",
@@ -67,6 +86,44 @@
       "homepage": "https://github.com/benjaminLedel/covey",
       "license": "AGPL-3.0-only",
       "builtin_since": "0.1.0"
+    },
+    {
+      "name": "openproject",
+      "label": "OpenProject",
+      "description": "Project management: find work packages, read them, comment and move them through their status.",
+      "category": "ticketing",
+      "kind": "custom",
+      "publisher": "covey",
+      "homepage": "https://github.com/benjaminLedel/covey-plugin-pack",
+      "license": "MIT",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "url": "https://raw.githubusercontent.com/benjaminLedel/covey-plugin-pack/v0.1.0/plugins/openproject.json",
+          "sha256": "4fb8a965d0b632adb9ce3edbcc9014d041b36e7187fbd50c7262573eff01f33f",
+          "covey_min_version": "0.4.0",
+          "notes": "First release. Written from the published API docs, not yet exercised against a live system."
+        }
+      ]
+    },
+    {
+      "name": "redmine",
+      "label": "Redmine",
+      "description": "Issue tracker: find issues, read them, comment, change status and assignee.",
+      "category": "ticketing",
+      "kind": "custom",
+      "publisher": "covey",
+      "homepage": "https://github.com/benjaminLedel/covey-plugin-pack",
+      "license": "MIT",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "url": "https://raw.githubusercontent.com/benjaminLedel/covey-plugin-pack/v0.1.0/plugins/redmine.json",
+          "sha256": "0b11ca2ba297a56c07482c2ba4c3e0d7c50e5488b78726188fb44e467815fb81",
+          "covey_min_version": "0.4.0",
+          "notes": "First release. Written from the published API docs, not yet exercised against a live system."
+        }
+      ]
     },
     {
       "name": "sharepoint",

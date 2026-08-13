@@ -1,0 +1,19 @@
+{
+  "name": "redmine",
+  "label": "Redmine",
+  "description": "Issue tracker: find issues, read them, comment, change status and assignee.",
+  "category": "ticketing",
+  "kind": "custom",
+  "publisher": "covey",
+  "homepage": "https://github.com/benjaminLedel/covey-plugin-pack",
+  "license": "MIT",
+  "versions": [
+    {
+      "version": "0.1.0",
+      "url": "https://raw.githubusercontent.com/benjaminLedel/covey-plugin-pack/v0.1.0/plugins/redmine.json",
+      "sha256": "0b11ca2ba297a56c07482c2ba4c3e0d7c50e5488b78726188fb44e467815fb81",
+      "covey_min_version": "0.4.0",
+      "notes": "First release. Written from the published API docs, not yet exercised against a live system."
+    }
+  ]
+}
