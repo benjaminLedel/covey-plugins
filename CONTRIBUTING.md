@@ -27,6 +27,41 @@ covey plugin lint covey/redmine.json
 
 This is the same check CI runs, and the same one Covey applies at install time: schema, action methods, path form, webhook fields. Unknown fields are an error, not a warning — a typo in a field name would otherwise become a silently missing feature.
 
+Alongside errors it prints what your plugin is giving up:
+
+```
+redmine.json: ok — manifest plugin "redmine" (ticketing), 2 action(s): comment, get_issue
+redmine.json: note — no poll: — nur-wenn: on this system cannot be answered and every heartbeat fires (fail-open)
+```
+
+### Declare what you can
+
+A manifest can carry the same optional capabilities a plugin compiled into Covey has. None is mandatory, and each one you leave out costs the operator something concrete:
+
+| Block | What it buys | Without it |
+|---|---|---|
+| `probe` | one read-only GET plus the field the identity is read from | no connection test — "saved" and "works" stay different things until an agent runs |
+| `poll` | one GET per sub-scope plus a field carrying the work signature | `nur-wenn: <system>` in `HEARTBEAT.md` cannot be answered, so every heartbeat fires and wakes an agent for nothing |
+| `scopes` | the vocabulary `ACCESS.md` may use | any word is accepted and none of them narrows anything |
+| per-action `scope` + `doc` | narrows the prompt doc to what an agent may actually do | every agent carries every action's instructions in the context of every turn |
+
+```json
+"scopes": ["read", "comment"],
+"probe": {"path": "/users/current.json", "identity_field": "user.login"},
+"poll": {
+  "": {"path": "/issues.json?assigned_to_id=me&status_id=open",
+       "items_field": "issues", "signature_field": "updated_on"}
+},
+"actions": {
+  "get_issue": {"method": "GET", "path": "/issues/{id}.json",
+                "scope": "read", "doc": "read one issue including its notes"}
+}
+```
+
+A note on `poll`: `signature_field` is what keeps an agent from being woken every few minutes for the same piece of news. It should be a per-item value that changes when the item does — an `updated_at`, the id of the newest comment. Leave it out and the condition fires on every tick for as long as the state persists.
+
+A note on `doc`: scope narrowing works on structure, not on prose. If your `prompt_doc` is a block of free text and your actions have no `doc` lines, there is no way to tell which sentence belongs to which action, and the doc is handed over whole no matter what an agent's scopes say.
+
 ## 3. Write the entry
 
 `plugins/<name>.json`, where `<name>` matches the `name` inside your artefact and the filename:
