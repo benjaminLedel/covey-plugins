@@ -25,9 +25,15 @@ If you operate an instance and a plugin you installed is withdrawn, you will see
 
 Every version is pinned by digest, so the linked repository may be force-pushed, retagged or deleted without changing what installs — a changed artefact stops installing rather than silently becoming something else. Published versions are append-only; a fix is a new version. Every change that ever reaches an instance is a merge here, which makes the pull-request history the audit trail. Nothing in this index is signed beyond that today (see the open points in [Covey's spec](https://github.com/benjaminLedel/covey/blob/main/spec/22-plugin-marketplace.md)); the digest plus a reviewed merge is what carries it.
 
-## What the index will not distribute
+## What the index distributes, and what it will not
 
-- **Executable code.** No binaries, no WASM. Manifests and MCP configurations only — data. This is a hard rule.
+Three kinds of artefact: **manifests**, **MCP configurations**, and **WebAssembly modules** — the last of these is real code, and it is welcome. A plugin should not be limited to what a declarative file can express.
+
+What makes code acceptable here is the sandbox it runs in. A wasm module has no sockets and no filesystem; it asks Covey to make requests, and Covey adds the base URL and the token. It therefore **never holds a credential and has no way to send one anywhere**. It cannot name a host, it is capped in memory and time, and every invocation gets a fresh instance.
+
+Still refused:
+
+- **Native code.** No `.so`, no platform binaries. Those would run unconfined inside the control plane's process, next to the master key.
 - **Credentials.** No tokens, keys or account details, in entries or in artefacts.
 
 ## What a listed plugin can actually reach

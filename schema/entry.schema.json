@@ -49,9 +49,10 @@
       "enum": [
         "custom",
         "mcp",
+        "wasm",
         "builtin"
       ],
-      "description": "custom = JSON manifest, mcp = MCP server configuration, builtin = compiled into Covey (listed for findability, activated rather than installed)."
+      "description": "custom = JSON manifest, mcp = MCP server configuration, wasm = a WebAssembly module (real code, sandboxed: no sockets, no filesystem, and it never sees the credential), builtin = compiled into Covey (listed for findability, activated rather than installed)."
     },
     "publisher": {
       "type": "string",
