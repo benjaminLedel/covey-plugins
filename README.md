@@ -54,16 +54,19 @@ CI validates the entry, fetches the artefact, verifies the digest and lints the 
 
 ## What may be listed
 
-Two kinds of plugin are installable at runtime, and only those two are distributed here:
+Three kinds of plugin are installable at runtime, and those three are what this index distributes:
 
 | `kind` | Artefact | What it is |
 |---|---|---|
 | `custom` | a JSON manifest | REST actions, webhook mapping and auth headers, interpreted by Covey's generic engine |
 | `mcp` | an MCP server configuration | a reachable MCP endpoint whose tools become agent actions |
+| `wasm` | a WebAssembly module | real code — Go, TinyGo, Rust — for plugins a declarative file cannot express. Start from [covey-plugin-template](https://github.com/benjaminLedel/covey-plugin-template) |
 
 `builtin` entries may also appear, for findability: those ship compiled into Covey and are activated rather than installed. Their code goes to the [Covey repository](https://github.com/benjaminLedel/covey), not here.
 
-**No executable code is distributed through this index** — no binaries, no WASM. Data only. That is a hard rule, not a current limitation.
+**Code is welcome; unconfined code is not.** A wasm module has no sockets and no filesystem, and it never sees the credential — it names a path, and Covey adds the base URL and the token. Native code (`.so`, platform binaries) is not distributed here and will not be: it would run unconfined inside the control plane's process.
+
+Because nobody can review a compiled binary, **wasm entries are rebuilt from source by CI** and refused unless the result matches the pinned digest byte for byte. See [CONTRIBUTING](CONTRIBUTING.md).
 
 ### What a manifest plugin can reach
 

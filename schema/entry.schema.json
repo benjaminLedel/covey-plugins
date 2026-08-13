@@ -119,6 +119,39 @@
             "type": "string",
             "maxLength": 500,
             "description": "What changed. Shown next to the update button."
+          },
+          "build": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "repo",
+              "ref",
+              "go"
+            ],
+            "description": "How this artefact is built from source. REQUIRED for kind=wasm, and the reason is the whole trust story: a reviewer can read a manifest, but nobody reviews a multi-megabyte binary. CI checks out repo at ref, builds with the named Go version and -trimpath, and refuses the entry unless the result matches sha256 exactly. Go's wasm output is byte-identical across machines and paths under those conditions, so this turns 'trust the publisher' into 'read the source'.",
+            "properties": {
+              "repo": {
+                "type": "string",
+                "pattern": "^https://",
+                "description": "Clonable URL of the source repository."
+              },
+              "ref": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
+                "description": "Tag or commit SHA — immutable, like the artefact URL."
+              },
+              "dir": {
+                "type": "string",
+                "maxLength": 200,
+                "description": "Package directory inside the repository. Default: the root."
+              },
+              "go": {
+                "type": "string",
+                "pattern": "^[0-9]+\\.[0-9]+(\\.[0-9]+)?$",
+                "description": "Go version to build with. A different toolchain produces different bytes, so this is part of what is being pinned."
+              }
+            }
           }
         }
       }
@@ -150,6 +183,32 @@
         "required": [
           "versions"
         ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "wasm"
+          }
+        },
+        "required": [
+          "kind"
+        ]
+      },
+      "then": {
+        "properties": {
+          "versions": {
+            "items": {
+              "required": [
+                "version",
+                "url",
+                "sha256",
+                "build"
+              ]
+            }
+          }
+        }
       }
     }
   ]

@@ -1,0 +1,82 @@
+name: rebuild
+
+# Nobody reviews a multi-megabyte binary.
+#
+# For a manifest, review works: the pull request shows the whole file and the
+# diff IS the behaviour. For a wasm plugin it does not — the entry pins a digest
+# over compiled code, and the source in the linked repository has no proven
+# connection to it. A publisher could show source X and submit a binary built
+# from Y.
+#
+# So CI rebuilds it. It checks out the named repository at the named ref, builds
+# with the named Go version and -trimpath, and refuses the entry unless the
+# result is byte-identical to the pinned digest. Go's wasm output is
+# reproducible under those conditions (verified: two different machines, two
+# different paths, same digest — without -trimpath the build path ends up in
+# the binary and they differ).
+#
+# With this, reviewing the SOURCE means something again.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  rebuild:
+    name: rebuild wasm modules from source
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Collect the rebuildable versions
+        id: collect
+        run: |
+          set -euo pipefail
+          python3 scripts/build_catalog.py --builds > /tmp/builds.txt
+          echo "count=$(wc -l < /tmp/builds.txt | tr -d ' ')" >> "$GITHUB_OUTPUT"
+          cat /tmp/builds.txt
+
+      - name: Rebuild and compare
+        if: steps.collect.outputs.count != '0'
+        run: |
+          set -euo pipefail
+          fail=0
+          while IFS='|' read -r name version want repo ref dir go; do
+            [ -n "$name" ] || continue
+            echo "== $name $version — $repo@$ref (go $go)"
+            work=$(mktemp -d)
+            git clone --quiet --depth 1 --branch "$ref" "$repo" "$work/src" 2>/dev/null \
+              || git clone --quiet "$repo" "$work/src"
+            git -C "$work/src" checkout --quiet "$ref"
+
+            # The toolchain is part of what is pinned: a different Go version
+            # produces different bytes, and then the comparison would only prove
+            # that CI has a different compiler.
+            curl -sSL "https://go.dev/dl/go${go}.linux-amd64.tar.gz" -o "$work/go.tgz"
+            mkdir -p "$work/toolchain" && tar -C "$work/toolchain" -xzf "$work/go.tgz"
+
+            (cd "$work/src/$dir" && GOOS=wasip1 GOARCH=wasm "$work/toolchain/go/bin/go" build \
+                -trimpath -o "$work/out.wasm" .)
+
+            got=$(sha256sum "$work/out.wasm" | cut -d' ' -f1)
+            if [ "$got" = "$want" ]; then
+              echo "   ✓ the published module is this source"
+            else
+              echo "::error::$name $version: rebuild does not match — entry pins $want, source builds to $got"
+              fail=1
+            fi
+            rm -rf "$work"
+          done < /tmp/builds.txt
+          exit $fail
+
+      - name: Nothing to rebuild
+        if: steps.collect.outputs.count == '0'
+        run: echo "::notice::no wasm entries in this catalogue yet"

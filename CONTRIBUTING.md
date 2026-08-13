@@ -2,9 +2,11 @@
 
 A listing is a pull request that adds or extends one file under `plugins/`. Your plugin itself stays in your own repository.
 
+**Two kinds of plugin, two amounts of work.** If your system speaks plain REST with a token in a header and needs no logic worth the name, write a **manifest** — a JSON file, described below. If it needs to paginate, merge calls, parse or decide, write **code**: ordinary Go compiled to WebAssembly, starting from [covey-plugin-template](https://github.com/benjaminLedel/covey-plugin-template). The publishing steps are the same either way; the differences are marked.
+
 ## 1. Publish the artefact
 
-Keep the manifest (or MCP configuration) in your repository and reference it at an **immutable** URL — a tag or a commit SHA, never a branch:
+Keep the artefact — a manifest, an MCP configuration or a `.wasm` module — in your repository and reference it at an **immutable** URL — a tag or a commit SHA, never a branch:
 
 ```
 https://raw.githubusercontent.com/example-gmbh/covey-redmine/v1.2.0/covey/redmine.json   ✅
@@ -93,7 +95,7 @@ A note on `doc`: scope narrowing works on structure, not on prose. If your `prom
 | `label` | what a person sees in the store. |
 | `description` | one sentence, what an agent can do with it. Not a pitch. |
 | `category` | one of `ticketing`, `code`, `communication`, `files`, `web`, `dev`, `other`. |
-| `kind` | `custom` (manifest) or `mcp` (MCP server). `builtin` is reserved for plugins compiled into Covey. |
+| `kind` | `custom` (manifest), `mcp` (MCP server) or `wasm` (a compiled module — see below). `builtin` is reserved for plugins compiled into Covey. |
 | `publisher` | you — an organisation or a person, stable across your plugins. |
 | `homepage` | where the source, the issues and the setup instructions live. Required: a plugin whose origin cannot be checked will not be merged. |
 | `license` | an SPDX identifier. |
@@ -111,6 +113,32 @@ python3 scripts/build_catalog.py --verify
 ## 4. Open the pull request
 
 CI checks the entry against the schema, the name against the rest of the catalogue, fetches the artefact, verifies the digest and the name inside it, and lints the plugin. On merge, `catalog.json` is regenerated automatically — **do not** edit it in your pull request.
+
+## If your plugin is code (kind: wasm)
+
+Everything above applies, and two things are added.
+
+**Your build must be reproducible.** Nobody reviews a three-megabyte binary. What the catalogue can do instead is rebuild it: CI checks out your repository at the tag you name, builds it with the Go version you name, and refuses the entry unless the result matches your digest byte for byte. That is what turns "trust the publisher" into "read the source" — and it only works if your build is deterministic. Build with `-trimpath` (the template's Makefile does), and do not embed timestamps or hostnames.
+
+**So the entry carries a `build` block**, and it is required:
+
+```json
+"versions": [{
+  "version": "0.1.0",
+  "url": "https://github.com/you/covey-plugin-example/releases/download/v0.1.0/example.wasm",
+  "sha256": "…",
+  "build": {
+    "repo": "https://github.com/you/covey-plugin-example",
+    "ref": "v0.1.0",
+    "dir": ".",
+    "go": "1.26.5"
+  }
+}]
+```
+
+`make build` in the [template](https://github.com/benjaminLedel/covey-plugin-template) prints the digest and the Go version to put there. `covey plugin lint example.wasm` loads the module and reports what it declares — and what it is giving up.
+
+What a reviewer looks at for a wasm entry is therefore the **source**, not the artefact: does the code do what the description claims, and is the repository real. The sandbox handles the rest — a module has no sockets, no filesystem, and never sees the credential.
 
 ## Releasing a new version
 

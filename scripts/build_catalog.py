@@ -36,7 +36,8 @@ CATALOG = ROOT / "catalog.json"
 
 SCHEMA_VERSION = 1
 FETCH_TIMEOUT = 30
-MAX_ARTEFACT_BYTES = 1 << 20  # 1 MiB — an artefact is a description, not a payload
+MAX_ARTEFACT_BYTES = 1 << 20   # 1 MiB — a manifest is a description, not a payload
+MAX_MODULE_BYTES = 16 << 20    # 16 MiB — compiled code is legitimately larger
 
 
 class Problems(list):
@@ -152,21 +153,30 @@ def branch_ref(url: str) -> str | None:
 def verify_artefacts(entries: list[dict], problems: Problems) -> None:
     for entry in entries:
         file = entry["_file"]
+        wasm = entry.get("kind") == "wasm"
+        limit = MAX_MODULE_BYTES if wasm else MAX_ARTEFACT_BYTES
         for v in entry.get("versions") or []:
             url, want = v.get("url", ""), v.get("sha256", "")
             label = f'version {v.get("version")}'
             try:
                 with urllib.request.urlopen(url, timeout=FETCH_TIMEOUT) as resp:
-                    body = resp.read(MAX_ARTEFACT_BYTES + 1)
+                    body = resp.read(limit + 1)
             except (urllib.error.URLError, OSError, ValueError) as e:
                 problems.add(file.name, f"{label}: cannot fetch {url} ({e})")
                 continue
-            if len(body) > MAX_ARTEFACT_BYTES:
-                problems.add(file.name, f"{label}: artefact larger than {MAX_ARTEFACT_BYTES} bytes")
+            if len(body) > limit:
+                problems.add(file.name, f"{label}: artefact larger than {limit} bytes")
                 continue
             got = hashlib.sha256(body).hexdigest()
             if got != want:
                 problems.add(file.name, f"{label}: sha256 mismatch — entry says {want}, artefact is {got}")
+                continue
+            if wasm:
+                # A module is binary; the name lives inside the code and is
+                # checked by `covey plugin lint`. What IS checkable here is that
+                # it is a wasm module at all.
+                if body[:4] != b"\x00asm":
+                    problems.add(file.name, f"{label}: artefact is not a WebAssembly module")
                 continue
             try:
                 artefact = json.loads(body)
@@ -200,6 +210,8 @@ def main() -> int:
                     help="do not write catalog.json; fail if it is out of date")
     ap.add_argument("--urls", action="store_true",
                     help="print every artefact URL, one per line, and do nothing else")
+    ap.add_argument("--builds", action="store_true",
+                    help="print the rebuildable versions as name|version|sha256|repo|ref|dir|go")
     ap.add_argument("--out", type=pathlib.Path, default=CATALOG)
     args = ap.parse_args()
 
@@ -208,6 +220,21 @@ def main() -> int:
 
     # --urls exists so that CI can loop over the artefacts without a second
     # implementation of "where do the artefacts live" in shell.
+    # --builds feeds the job that rebuilds wasm modules from source. Nobody
+    # reviews a multi-megabyte binary; what CI can do instead is prove that the
+    # binary IS the source somebody reviewed.
+    if args.builds:
+        for entry in entries:
+            for v in entry.get("versions") or []:
+                b = v.get("build")
+                if not b:
+                    continue
+                print("|".join([
+                    entry.get("name", ""), v.get("version", ""), v.get("sha256", ""),
+                    b.get("repo", ""), b.get("ref", ""), b.get("dir", "") or ".", b.get("go", ""),
+                ]))
+        return 1 if problems else 0
+
     if args.urls:
         for entry in entries:
             for v in entry.get("versions") or []:
