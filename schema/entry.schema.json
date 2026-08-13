@@ -5,7 +5,16 @@
   "description": "One file per plugin under plugins/. The artefact itself lives elsewhere and is pinned by digest.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["name", "label", "description", "category", "kind", "publisher", "homepage", "license"],
+  "required": [
+    "name",
+    "label",
+    "description",
+    "category",
+    "kind",
+    "publisher",
+    "homepage",
+    "license"
+  ],
   "properties": {
     "name": {
       "type": "string",
@@ -25,11 +34,23 @@
       "description": "One sentence: what an agent can do with this system."
     },
     "category": {
-      "enum": ["ticketing", "code", "communication", "files", "web", "dev", "other"],
+      "enum": [
+        "ticketing",
+        "code",
+        "communication",
+        "files",
+        "web",
+        "dev",
+        "other"
+      ],
       "description": "Placement in the store. Purely classification — no behaviour depends on it."
     },
     "kind": {
-      "enum": ["custom", "mcp", "builtin"],
+      "enum": [
+        "custom",
+        "mcp",
+        "builtin"
+      ],
       "description": "custom = JSON manifest, mcp = MCP server configuration, builtin = compiled into Covey (listed for findability, activated rather than installed)."
     },
     "publisher": {
@@ -49,6 +70,12 @@
       "maxLength": 64,
       "description": "SPDX identifier of the plugin (not of this index)."
     },
+    "icon": {
+      "type": "string",
+      "pattern": "^data:image/(svg\\+xml|png|webp);base64,[A-Za-z0-9+/=]+$",
+      "maxLength": 32768,
+      "description": "The plugin's mark, EMBEDDED as a base64 data: URI — never a link to an image on a server. A remote image would fire a request to that host for everyone who opens a store page in every instance reading this catalogue: a counting pixel nobody asked for. Covey drops anything else and falls back to a category symbol, so an omitted or malformed icon costs nothing but the logo."
+    },
     "deprecated": {
       "type": "string",
       "description": "Present = the plugin is no longer maintained; the text says what to use instead. It stays in the catalogue, marked, so existing installations keep resolving."
@@ -60,7 +87,11 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["version", "url", "sha256"],
+        "required": [
+          "version",
+          "url",
+          "sha256"
+        ],
         "properties": {
           "version": {
             "type": "string",
@@ -99,9 +130,26 @@
   },
   "allOf": [
     {
-      "if": { "properties": { "kind": { "const": "builtin" } }, "required": ["kind"] },
-      "then": { "required": ["builtin_since"] },
-      "else": { "required": ["versions"] }
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "builtin"
+          }
+        },
+        "required": [
+          "kind"
+        ]
+      },
+      "then": {
+        "required": [
+          "builtin_since"
+        ]
+      },
+      "else": {
+        "required": [
+          "versions"
+        ]
+      }
     }
   ]
 }
