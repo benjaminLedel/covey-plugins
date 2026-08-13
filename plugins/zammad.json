@@ -1,0 +1,11 @@
+{
+  "name": "zammad",
+  "label": "Zammad",
+  "description": "Open-source helpdesk: read tickets, reply, set state, escalate. Woken by trigger webhooks.",
+  "category": "ticketing",
+  "kind": "builtin",
+  "publisher": "covey",
+  "homepage": "https://github.com/benjaminLedel/covey",
+  "license": "AGPL-3.0-only",
+  "builtin_since": "0.1.0"
+}

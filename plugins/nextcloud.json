@@ -1,0 +1,11 @@
+{
+  "name": "nextcloud",
+  "label": "Nextcloud files",
+  "description": "A Nextcloud file store over WebDAV, through a share link or an account: list, read, write and delete files.",
+  "category": "files",
+  "kind": "builtin",
+  "publisher": "covey",
+  "homepage": "https://github.com/benjaminLedel/covey",
+  "license": "AGPL-3.0-only",
+  "builtin_since": "0.1.0"
+}

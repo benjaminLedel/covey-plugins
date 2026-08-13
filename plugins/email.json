@@ -1,0 +1,11 @@
+{
+  "name": "email",
+  "label": "Email (IMAP/SMTP)",
+  "description": "A mail account of its own: sift the inbox over IMAP, read attachments, reply and send over SMTP.",
+  "category": "communication",
+  "kind": "builtin",
+  "publisher": "covey",
+  "homepage": "https://github.com/benjaminLedel/covey",
+  "license": "AGPL-3.0-only",
+  "builtin_since": "0.1.0"
+}

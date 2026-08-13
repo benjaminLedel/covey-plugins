@@ -1,0 +1,48 @@
+name: catalog
+
+# catalog.json is what every Covey instance actually fetches. It is generated
+# from plugins/ here, so that a merge is the only way a plugin ever reaches an
+# instance — and so that no reviewer has to check a generated file by eye.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "plugins/**"
+      - "scripts/build_catalog.py"
+      - "schema/**"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: catalog
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install --quiet jsonschema
+
+      # --check compares the plugin list and ignores generated_at, which moves
+      # on every run — an otherwise identical catalogue must not produce a
+      # commit, or main would grow a timestamp commit per push.
+      - name: Rebuild and commit if the catalogue changed
+        run: |
+          set -euo pipefail
+          if python3 scripts/build_catalog.py --check; then
+            exit 0
+          fi
+          python3 scripts/build_catalog.py
+          git config user.name "covey-plugins bot"
+          git config user.email "noreply@users.noreply.github.com"
+          git add catalog.json
+          git commit -m "catalog: neu gebaut aus plugins/"
+          git push

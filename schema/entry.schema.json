@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/benjaminLedel/covey-plugins/main/schema/entry.schema.json",
+  "title": "Covey plugin catalogue entry",
+  "description": "One file per plugin under plugins/. The artefact itself lives elsewhere and is pinned by digest.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "label", "description", "category", "kind", "publisher", "homepage", "license"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]{1,31}$",
+      "description": "Plugin identity. Must equal the filename stem and the name inside the artefact. Also the credential prefix (<name>_token/<name>_url) and the guard-rail subject prefix."
+    },
+    "label": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 60,
+      "description": "Display name in the store."
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "description": "One sentence: what an agent can do with this system."
+    },
+    "category": {
+      "enum": ["ticketing", "code", "communication", "files", "web", "dev", "other"],
+      "description": "Placement in the store. Purely classification — no behaviour depends on it."
+    },
+    "kind": {
+      "enum": ["custom", "mcp", "builtin"],
+      "description": "custom = JSON manifest, mcp = MCP server configuration, builtin = compiled into Covey (listed for findability, activated rather than installed)."
+    },
+    "publisher": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]{1,63}$",
+      "description": "Who publishes it. Stable across a publisher's plugins."
+    },
+    "homepage": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://",
+      "description": "Where the source and the issue tracker live."
+    },
+    "license": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "description": "SPDX identifier of the plugin (not of this index)."
+    },
+    "deprecated": {
+      "type": "string",
+      "description": "Present = the plugin is no longer maintained; the text says what to use instead. It stays in the catalogue, marked, so existing installations keep resolving."
+    },
+    "versions": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Newest first. Append-only: a published version is never edited.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["version", "url", "sha256"],
+        "properties": {
+          "version": {
+            "type": "string",
+            "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(-[0-9A-Za-z.-]+)?$",
+            "description": "Semantic version of the plugin, unique within this entry."
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https://",
+            "description": "Immutable URL of the artefact — a tag or commit, never a branch."
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$",
+            "description": "Digest of the artefact. Verified in CI and again at install time."
+          },
+          "covey_min_version": {
+            "type": "string",
+            "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+            "description": "Oldest Covey release that can interpret this artefact."
+          },
+          "notes": {
+            "type": "string",
+            "maxLength": 500,
+            "description": "What changed. Shown next to the update button."
+          }
+        }
+      }
+    },
+    "builtin_since": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "kind=builtin only: the Covey release from which this plugin ships compiled in."
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "kind": { "const": "builtin" } }, "required": ["kind"] },
+      "then": { "required": ["builtin_since"] },
+      "else": { "required": ["versions"] }
+    }
+  ]
+}

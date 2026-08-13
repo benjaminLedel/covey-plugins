@@ -1,0 +1,11 @@
+{
+  "name": "gitlab",
+  "label": "GitLab",
+  "description": "Issues as the working set: check out the code, fix, commit onto a branch, open a merge request and live the review loop.",
+  "category": "code",
+  "kind": "builtin",
+  "publisher": "covey",
+  "homepage": "https://github.com/benjaminLedel/covey",
+  "license": "AGPL-3.0-only",
+  "builtin_since": "0.1.0"
+}

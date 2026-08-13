@@ -1,0 +1,11 @@
+{
+  "name": "vulndb",
+  "label": "Vulnerability databases",
+  "description": "Known vulnerabilities in declared dependencies: scan a lock file against OSV.dev, fetch advisories, look up the next safe version.",
+  "category": "dev",
+  "kind": "builtin",
+  "publisher": "covey",
+  "homepage": "https://github.com/benjaminLedel/covey",
+  "license": "AGPL-3.0-only",
+  "builtin_since": "0.2.0"
+}

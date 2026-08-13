@@ -1,0 +1,12 @@
+# Reviews for the parts that decide what an instance trusts.
+/schema/            @benjaminLedel
+/scripts/           @benjaminLedel
+/.github/           @benjaminLedel
+/CONTRIBUTING.md    @benjaminLedel
+/catalog.json       @benjaminLedel
+
+# Entries under /plugins are reviewed by the index maintainers. A publisher who
+# maintains several plugins gets their own line here, so they can carry their
+# own releases:
+#
+#   /plugins/redmine.json   @example-gmbh

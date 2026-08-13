@@ -1,0 +1,11 @@
+{
+  "name": "dev",
+  "label": "Dev sandbox",
+  "description": "The agent's own computer: shell commands, long-running processes, and programming work handed to a sub-agent inside the project checkout.",
+  "category": "dev",
+  "kind": "builtin",
+  "publisher": "covey",
+  "homepage": "https://github.com/benjaminLedel/covey",
+  "license": "AGPL-3.0-only",
+  "builtin_since": "0.1.0"
+}

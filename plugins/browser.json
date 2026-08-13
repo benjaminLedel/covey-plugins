@@ -1,0 +1,11 @@
+{
+  "name": "browser",
+  "label": "Browser (headless Chrome)",
+  "description": "Headless Chrome as the universal adapter for web applications without a plugin of their own: navigate, read, screenshot, click, type.",
+  "category": "web",
+  "kind": "builtin",
+  "publisher": "covey",
+  "homepage": "https://github.com/benjaminLedel/covey",
+  "license": "AGPL-3.0-only",
+  "builtin_since": "0.1.0"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "github",
+  "label": "GitHub",
+  "description": "Issues and pull requests as the working set: check out, fix, open a pull request, diagnose red Actions runs, review others' work.",
+  "category": "code",
+  "kind": "builtin",
+  "publisher": "covey",
+  "homepage": "https://github.com/benjaminLedel/covey",
+  "license": "AGPL-3.0-only",
+  "builtin_since": "0.2.0"
+}

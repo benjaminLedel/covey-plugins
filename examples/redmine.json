@@ -1,0 +1,25 @@
+{
+  "_comment": "A complete example entry. It is NOT part of the catalogue — the build reads plugins/ only. Copy it to plugins/<name>.json, replace every value, and drop this comment (the schema rejects unknown fields).",
+  "name": "redmine",
+  "label": "Redmine",
+  "description": "Issue tracker: read issues, comment, change status, assign.",
+  "category": "ticketing",
+  "kind": "custom",
+  "publisher": "example-gmbh",
+  "homepage": "https://github.com/example-gmbh/covey-redmine",
+  "license": "MIT",
+  "versions": [
+    {
+      "version": "1.2.0",
+      "url": "https://raw.githubusercontent.com/example-gmbh/covey-redmine/v1.2.0/covey/redmine.json",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "covey_min_version": "0.4.0",
+      "notes": "Adds the assign action."
+    },
+    {
+      "version": "1.1.0",
+      "url": "https://raw.githubusercontent.com/example-gmbh/covey-redmine/v1.1.0/covey/redmine.json",
+      "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+    }
+  ]
+}

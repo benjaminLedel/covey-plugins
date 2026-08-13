@@ -1,0 +1,11 @@
+{
+  "name": "teams",
+  "label": "Microsoft Teams",
+  "description": "A chat channel through the Azure Bot Service: receive messages at a JWT-verified endpoint, answer through the Bot Connector.",
+  "category": "communication",
+  "kind": "builtin",
+  "publisher": "covey",
+  "homepage": "https://github.com/benjaminLedel/covey",
+  "license": "AGPL-3.0-only",
+  "builtin_since": "0.1.0"
+}

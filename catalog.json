@@ -1,0 +1,116 @@
+{
+  "schema": 1,
+  "generated_at": "2026-08-13T07:57:06Z",
+  "plugins": [
+    {
+      "name": "browser",
+      "label": "Browser (headless Chrome)",
+      "description": "Headless Chrome as the universal adapter for web applications without a plugin of their own: navigate, read, screenshot, click, type.",
+      "category": "web",
+      "kind": "builtin",
+      "publisher": "covey",
+      "homepage": "https://github.com/benjaminLedel/covey",
+      "license": "AGPL-3.0-only",
+      "builtin_since": "0.1.0"
+    },
+    {
+      "name": "dev",
+      "label": "Dev sandbox",
+      "description": "The agent's own computer: shell commands, long-running processes, and programming work handed to a sub-agent inside the project checkout.",
+      "category": "dev",
+      "kind": "builtin",
+      "publisher": "covey",
+      "homepage": "https://github.com/benjaminLedel/covey",
+      "license": "AGPL-3.0-only",
+      "builtin_since": "0.1.0"
+    },
+    {
+      "name": "email",
+      "label": "Email (IMAP/SMTP)",
+      "description": "A mail account of its own: sift the inbox over IMAP, read attachments, reply and send over SMTP.",
+      "category": "communication",
+      "kind": "builtin",
+      "publisher": "covey",
+      "homepage": "https://github.com/benjaminLedel/covey",
+      "license": "AGPL-3.0-only",
+      "builtin_since": "0.1.0"
+    },
+    {
+      "name": "github",
+      "label": "GitHub",
+      "description": "Issues and pull requests as the working set: check out, fix, open a pull request, diagnose red Actions runs, review others' work.",
+      "category": "code",
+      "kind": "builtin",
+      "publisher": "covey",
+      "homepage": "https://github.com/benjaminLedel/covey",
+      "license": "AGPL-3.0-only",
+      "builtin_since": "0.2.0"
+    },
+    {
+      "name": "gitlab",
+      "label": "GitLab",
+      "description": "Issues as the working set: check out the code, fix, commit onto a branch, open a merge request and live the review loop.",
+      "category": "code",
+      "kind": "builtin",
+      "publisher": "covey",
+      "homepage": "https://github.com/benjaminLedel/covey",
+      "license": "AGPL-3.0-only",
+      "builtin_since": "0.1.0"
+    },
+    {
+      "name": "nextcloud",
+      "label": "Nextcloud files",
+      "description": "A Nextcloud file store over WebDAV, through a share link or an account: list, read, write and delete files.",
+      "category": "files",
+      "kind": "builtin",
+      "publisher": "covey",
+      "homepage": "https://github.com/benjaminLedel/covey",
+      "license": "AGPL-3.0-only",
+      "builtin_since": "0.1.0"
+    },
+    {
+      "name": "sharepoint",
+      "label": "SharePoint / Teams files",
+      "description": "A SharePoint document library through a share link: list, read, write and delete files.",
+      "category": "files",
+      "kind": "builtin",
+      "publisher": "covey",
+      "homepage": "https://github.com/benjaminLedel/covey",
+      "license": "AGPL-3.0-only",
+      "builtin_since": "0.1.0"
+    },
+    {
+      "name": "teams",
+      "label": "Microsoft Teams",
+      "description": "A chat channel through the Azure Bot Service: receive messages at a JWT-verified endpoint, answer through the Bot Connector.",
+      "category": "communication",
+      "kind": "builtin",
+      "publisher": "covey",
+      "homepage": "https://github.com/benjaminLedel/covey",
+      "license": "AGPL-3.0-only",
+      "builtin_since": "0.1.0"
+    },
+    {
+      "name": "vulndb",
+      "label": "Vulnerability databases",
+      "description": "Known vulnerabilities in declared dependencies: scan a lock file against OSV.dev, fetch advisories, look up the next safe version.",
+      "category": "dev",
+      "kind": "builtin",
+      "publisher": "covey",
+      "homepage": "https://github.com/benjaminLedel/covey",
+      "license": "AGPL-3.0-only",
+      "builtin_since": "0.2.0"
+    },
+    {
+      "name": "zammad",
+      "label": "Zammad",
+      "description": "Open-source helpdesk: read tickets, reply, set state, escalate. Woken by trigger webhooks.",
+      "category": "ticketing",
+      "kind": "builtin",
+      "publisher": "covey",
+      "homepage": "https://github.com/benjaminLedel/covey",
+      "license": "AGPL-3.0-only",
+      "builtin_since": "0.1.0"
+    }
+  ]
+}
