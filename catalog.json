@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated_at": "2026-08-13T13:59:24Z",
+  "generated_at": "2026-08-18T13:47:30Z",
   "plugins": [
     {
       "name": "browser",
@@ -75,6 +75,17 @@
       "homepage": "https://github.com/benjaminLedel/covey",
       "license": "AGPL-3.0-only",
       "builtin_since": "0.1.0"
+    },
+    {
+      "name": "k8s",
+      "label": "Kubernetes",
+      "description": "Read a cluster: pod states and restarts, container logs including the crashed one, events, workloads, Ingresses, RBAC. No Secrets; writes limited to restart and delete pod.",
+      "category": "dev",
+      "kind": "builtin",
+      "publisher": "covey",
+      "homepage": "https://github.com/benjaminLedel/covey",
+      "license": "AGPL-3.0-only",
+      "builtin_since": "0.5.0"
     },
     {
       "name": "nextcloud",
