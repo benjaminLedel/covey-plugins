@@ -1,11 +1,25 @@
 {
   "name": "vulndb",
   "label": "Vulnerability databases",
-  "description": "Known vulnerabilities in declared dependencies: scan a lock file against OSV.dev, fetch advisories, look up the next safe version.",
+  "description": "Known vulnerabilities in declared dependencies: scan a lock file against OSV.dev, fetch advisories, look up the next safe version. Needs no credentials.",
   "category": "dev",
-  "kind": "builtin",
+  "kind": "wasm",
   "publisher": "covey",
-  "homepage": "https://github.com/benjaminLedel/covey",
+  "homepage": "https://github.com/benjaminLedel/covey-plugin-pack",
   "license": "AGPL-3.0-only",
-  "builtin_since": "0.2.0"
+  "versions": [
+    {
+      "version": "1.0.0",
+      "url": "https://github.com/benjaminLedel/covey-plugin-pack/releases/download/v0.7.0/vulndb.wasm",
+      "sha256": "85a9a6400bf6527bf9b9f428e1dc83d718d03863352122a9a5855f57215a6d4c",
+      "covey_min_version": "0.6.0",
+      "notes": "Was compiled into Covey up to 0.5.0. NVD now answers at its anonymous rate limit: vulndb_token no longer has an effect, because a module is never handed a credential for a host it only declared.",
+      "build": {
+        "repo": "https://github.com/benjaminLedel/covey-plugin-pack",
+        "ref": "c6da03f010dfd3a6954768c15c66c3af8f4b05da",
+        "go": "1.26.6",
+        "dir": "wasm/vulndb"
+      }
+    }
+  ]
 }

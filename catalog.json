@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated_at": "2026-08-18T13:47:30Z",
+  "generated_at": "2026-08-19T05:46:20Z",
   "plugins": [
     {
       "name": "browser",
@@ -79,13 +79,27 @@
     {
       "name": "k8s",
       "label": "Kubernetes",
-      "description": "Read a cluster: pod states and restarts, container logs including the crashed one, events, workloads, Ingresses, RBAC. No Secrets; writes limited to restart and delete pod.",
+      "description": "Read a cluster: pod states and restarts, container logs including the crashed one, events, workloads, Ingresses, RBAC and NetworkPolicies. Secrets stay unreadable.",
       "category": "dev",
-      "kind": "builtin",
+      "kind": "wasm",
       "publisher": "covey",
-      "homepage": "https://github.com/benjaminLedel/covey",
+      "homepage": "https://github.com/benjaminLedel/covey-plugin-pack",
       "license": "AGPL-3.0-only",
-      "builtin_since": "0.5.0"
+      "versions": [
+        {
+          "version": "1.0.0",
+          "url": "https://github.com/benjaminLedel/covey-plugin-pack/releases/download/v0.7.0/k8s.wasm",
+          "sha256": "dfd6fc580d4d8ec27de65bfbc05c270d1277a79bbf7a379838bc0e8a11c48041",
+          "covey_min_version": "0.6.0",
+          "notes": "Was compiled into Covey up to 0.5.0, and never listed in the catalogue. The cluster CA is no longer an action parameter: store it as the secret k8s_ca and the host builds the trust store from it.",
+          "build": {
+            "repo": "https://github.com/benjaminLedel/covey-plugin-pack",
+            "ref": "c6da03f010dfd3a6954768c15c66c3af8f4b05da",
+            "go": "1.26.6",
+            "dir": "wasm/k8s"
+          }
+        }
+      ]
     },
     {
       "name": "nextcloud",
@@ -161,24 +175,52 @@
     {
       "name": "vulndb",
       "label": "Vulnerability databases",
-      "description": "Known vulnerabilities in declared dependencies: scan a lock file against OSV.dev, fetch advisories, look up the next safe version.",
+      "description": "Known vulnerabilities in declared dependencies: scan a lock file against OSV.dev, fetch advisories, look up the next safe version. Needs no credentials.",
       "category": "dev",
-      "kind": "builtin",
+      "kind": "wasm",
       "publisher": "covey",
-      "homepage": "https://github.com/benjaminLedel/covey",
+      "homepage": "https://github.com/benjaminLedel/covey-plugin-pack",
       "license": "AGPL-3.0-only",
-      "builtin_since": "0.2.0"
+      "versions": [
+        {
+          "version": "1.0.0",
+          "url": "https://github.com/benjaminLedel/covey-plugin-pack/releases/download/v0.7.0/vulndb.wasm",
+          "sha256": "85a9a6400bf6527bf9b9f428e1dc83d718d03863352122a9a5855f57215a6d4c",
+          "covey_min_version": "0.6.0",
+          "notes": "Was compiled into Covey up to 0.5.0. NVD now answers at its anonymous rate limit: vulndb_token no longer has an effect, because a module is never handed a credential for a host it only declared.",
+          "build": {
+            "repo": "https://github.com/benjaminLedel/covey-plugin-pack",
+            "ref": "c6da03f010dfd3a6954768c15c66c3af8f4b05da",
+            "go": "1.26.6",
+            "dir": "wasm/vulndb"
+          }
+        }
+      ]
     },
     {
       "name": "zammad",
       "label": "Zammad",
-      "description": "Open-source helpdesk: read tickets, reply, set state, escalate. Woken by trigger webhooks.",
+      "description": "Open-source helpdesk: read tickets with their conversation, reply internally or to the customer, set state, escalate. Woken by trigger webhooks.",
       "category": "ticketing",
-      "kind": "builtin",
+      "kind": "wasm",
       "publisher": "covey",
-      "homepage": "https://github.com/benjaminLedel/covey",
+      "homepage": "https://github.com/benjaminLedel/covey-plugin-pack",
       "license": "AGPL-3.0-only",
-      "builtin_since": "0.1.0"
+      "versions": [
+        {
+          "version": "1.0.0",
+          "url": "https://github.com/benjaminLedel/covey-plugin-pack/releases/download/v0.7.0/zammad.wasm",
+          "sha256": "f7370c888a08315cea14dedbb580aaea784950ab5d0d4c0936ea93dc995ceee3",
+          "covey_min_version": "0.6.0",
+          "notes": "Was compiled into Covey up to 0.5.0. Same actions; COVEY_ZAMMAD_REPLY_TYPE is now the reply_type parameter, and the group allowlist belongs in the Zammad trigger.",
+          "build": {
+            "repo": "https://github.com/benjaminLedel/covey-plugin-pack",
+            "ref": "c6da03f010dfd3a6954768c15c66c3af8f4b05da",
+            "go": "1.26.6",
+            "dir": "wasm/zammad"
+          }
+        }
+      ]
     }
   ]
 }

@@ -1,11 +1,25 @@
 {
   "name": "k8s",
   "label": "Kubernetes",
-  "description": "Read a cluster: pod states and restarts, container logs including the crashed one, events, workloads, Ingresses, RBAC. No Secrets; writes limited to restart and delete pod.",
+  "description": "Read a cluster: pod states and restarts, container logs including the crashed one, events, workloads, Ingresses, RBAC and NetworkPolicies. Secrets stay unreadable.",
   "category": "dev",
-  "kind": "builtin",
+  "kind": "wasm",
   "publisher": "covey",
-  "homepage": "https://github.com/benjaminLedel/covey",
+  "homepage": "https://github.com/benjaminLedel/covey-plugin-pack",
   "license": "AGPL-3.0-only",
-  "builtin_since": "0.5.0"
+  "versions": [
+    {
+      "version": "1.0.0",
+      "url": "https://github.com/benjaminLedel/covey-plugin-pack/releases/download/v0.7.0/k8s.wasm",
+      "sha256": "dfd6fc580d4d8ec27de65bfbc05c270d1277a79bbf7a379838bc0e8a11c48041",
+      "covey_min_version": "0.6.0",
+      "notes": "Was compiled into Covey up to 0.5.0, and never listed in the catalogue. The cluster CA is no longer an action parameter: store it as the secret k8s_ca and the host builds the trust store from it.",
+      "build": {
+        "repo": "https://github.com/benjaminLedel/covey-plugin-pack",
+        "ref": "c6da03f010dfd3a6954768c15c66c3af8f4b05da",
+        "go": "1.26.6",
+        "dir": "wasm/k8s"
+      }
+    }
+  ]
 }
