@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated_at": "2026-08-19T05:46:20Z",
+  "generated_at": "2026-09-06T10:53:12Z",
   "plugins": [
     {
       "name": "browser",
@@ -221,6 +221,17 @@
           }
         }
       ]
+    },
+    {
+      "name": "zendesk",
+      "label": "Zendesk Support",
+      "description": "Support tickets as the working set: a ticket with its whole thread rebuilt from the audit trail, the file the customer attached, a reply as an internal note or an answer, escalation.",
+      "category": "ticketing",
+      "kind": "builtin",
+      "publisher": "covey",
+      "homepage": "https://github.com/benjaminLedel/covey",
+      "license": "AGPL-3.0-only",
+      "builtin_since": "0.8.6"
     }
   ]
 }
