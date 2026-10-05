@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated_at": "2026-10-05T15:22:57Z",
+  "generated_at": "2026-10-05T20:17:40Z",
   "plugins": [
     {
       "name": "browser",
@@ -98,6 +98,25 @@
             "go": "1.26.6",
             "dir": "wasm/k8s"
           }
+        }
+      ]
+    },
+    {
+      "name": "laravel",
+      "label": "Laravel application",
+      "description": "A door into a Laravel application that has benjaminledel/covey-laravel installed: schema, read-only SQL and the application log behind a read token, tinker behind a write token.",
+      "category": "dev",
+      "kind": "custom",
+      "publisher": "covey",
+      "homepage": "https://github.com/benjaminLedel/covey-laravel",
+      "license": "MIT",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "url": "https://raw.githubusercontent.com/benjaminLedel/covey-laravel/v0.1.0/covey/laravel.json",
+          "sha256": "0a8ab1cd12ba3747d07ed5632a8d9856ccdeb5adb8e9fae28a30e0e5b2e77638",
+          "covey_min_version": "0.13.0",
+          "notes": "First release. The manifest declares no webhook; a covey before 0.13.0 refuses it at upload (benjaminLedel/covey#542). The application side is the Composer package benjaminledel/covey-laravel 0.1.0."
         }
       ]
     },
