@@ -9,6 +9,19 @@
   "license": "AGPL-3.0-only",
   "versions": [
     {
+      "version": "1.1.1",
+      "url": "https://github.com/benjaminLedel/covey-plugin-pack/releases/download/v0.19.1/zammad.wasm",
+      "sha256": "2a58df21e779b86b7021223b1afdc7a327303967d9f1175f2a9198ef907c70c4",
+      "covey_min_version": "0.6.0",
+      "notes": "A reply whose body is HTML is sent as text/html instead of showing its tags; reply takes an optional content_type.",
+      "build": {
+        "repo": "https://github.com/benjaminLedel/covey-plugin-pack",
+        "ref": "b4e561de2c80155642bd216754d47ce447eb2f89",
+        "go": "1.26.6",
+        "dir": "wasm/zammad"
+      }
+    },
+    {
       "version": "1.1.0",
       "url": "https://github.com/benjaminLedel/covey-plugin-pack/releases/download/v0.19.0/zammad.wasm",
       "sha256": "1153bd9bc8e57102de2a396c7e7b48741ac9479445bc8fb04a52d1f3c01bb3b9",
