@@ -1,7 +1,7 @@
 {
   "name": "zammad",
   "label": "Zammad",
-  "description": "Open-source helpdesk: read tickets with their conversation, reply internally or to the customer, set state, escalate. Woken by trigger webhooks.",
+  "description": "Open-source helpdesk: find the tickets assigned to the agent, read them, reply internally or to the customer, set state, assign, escalate. Work by polling or webhook.",
   "category": "ticketing",
   "kind": "wasm",
   "publisher": "covey",
@@ -17,6 +17,19 @@
       "build": {
         "repo": "https://github.com/benjaminLedel/covey-plugin-pack",
         "ref": "c6da03f010dfd3a6954768c15c66c3af8f4b05da",
+        "go": "1.26.6",
+        "dir": "wasm/zammad"
+      }
+    },
+    {
+      "version": "1.1.0",
+      "url": "https://github.com/benjaminLedel/covey-plugin-pack/releases/download/v0.19.0/zammad.wasm",
+      "sha256": "1153bd9bc8e57102de2a396c7e7b48741ac9479445bc8fb04a52d1f3c01bb3b9",
+      "covey_min_version": "0.6.0",
+      "notes": "An agent finds its own work now: list_tickets (the tickets assigned to an owner, new/open), search_tickets (full text), assign (take or hand over), and a heartbeat pre-check behind nur-wenn: zammad:assigned, zammad:unassigned or zammad:owner:<login>. The webhook stays optional.",
+      "build": {
+        "repo": "https://github.com/benjaminLedel/covey-plugin-pack",
+        "ref": "ce225c8ac21e72b4ce821f4e9bbec0eb7b64c966",
         "go": "1.26.6",
         "dir": "wasm/zammad"
       }
