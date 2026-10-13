@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated_at": "2026-10-13T09:54:09Z",
+  "generated_at": "2026-10-13T14:31:52Z",
   "plugins": [
     {
       "name": "browser",
@@ -226,6 +226,19 @@
       "homepage": "https://github.com/benjaminLedel/covey-plugin-pack",
       "license": "AGPL-3.0-only",
       "versions": [
+        {
+          "version": "1.3.0",
+          "url": "https://github.com/benjaminLedel/covey-plugin-pack/releases/download/v0.22.0/zammad.wasm",
+          "sha256": "4d13aaf08f959bd0360ca6f795f1cb9b0c2b9e83a17f25420a074b05fbce3555",
+          "covey_min_version": "0.6.0",
+          "notes": "The poll signature is one ticket:<id>@<updated_at> entry per ticket and the module declares signs_items, so a covey workflow on a Zammad gate runs one case per ticket. Heartbeats on a Zammad gate wake once more after the update.",
+          "build": {
+            "repo": "https://github.com/benjaminLedel/covey-plugin-pack",
+            "ref": "e4c4fbfce4be542d0fef7efc91d8cd094698312b",
+            "go": "1.26.6",
+            "dir": "wasm/zammad"
+          }
+        },
         {
           "version": "1.2.0",
           "url": "https://github.com/benjaminLedel/covey-plugin-pack/releases/download/v0.20.0/zammad.wasm",
