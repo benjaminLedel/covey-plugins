@@ -9,6 +9,19 @@
   "license": "AGPL-3.0-only",
   "versions": [
     {
+      "version": "1.2.0",
+      "url": "https://github.com/benjaminLedel/covey-plugin-pack/releases/download/v0.20.0/zammad.wasm",
+      "sha256": "055ac460b38132a01e27976ef84263260dee7d59b68461202b40977fc0fae02f",
+      "covey_min_version": "0.6.0",
+      "notes": "A heartbeat can wake on tickets waiting on a reminder: nur-wenn: zammad:owner:<login>:pending (or zammad:assigned:pending). list_tickets takes state \"pending\", resolved by state type.",
+      "build": {
+        "repo": "https://github.com/benjaminLedel/covey-plugin-pack",
+        "ref": "a129084ceeb6b17baa4908cf8cb7d54ac76fb655",
+        "go": "1.26.6",
+        "dir": "wasm/zammad"
+      }
+    },
+    {
       "version": "1.1.1",
       "url": "https://github.com/benjaminLedel/covey-plugin-pack/releases/download/v0.19.1/zammad.wasm",
       "sha256": "2a58df21e779b86b7021223b1afdc7a327303967d9f1175f2a9198ef907c70c4",
