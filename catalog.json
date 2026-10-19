@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated_at": "2026-10-13T14:31:52Z",
+  "generated_at": "2026-10-19T11:52:11Z",
   "plugins": [
     {
       "name": "browser",
@@ -147,6 +147,25 @@
           "sha256": "4fb8a965d0b632adb9ce3edbcc9014d041b36e7187fbd50c7262573eff01f33f",
           "covey_min_version": "0.4.0",
           "notes": "First release. Written from the published API docs, not yet exercised against a live system."
+        }
+      ]
+    },
+    {
+      "name": "productboard",
+      "label": "Productboard",
+      "description": "Product management: read features, products and customer feedback, file and link feedback, update features.",
+      "category": "other",
+      "kind": "custom",
+      "publisher": "covey",
+      "homepage": "https://github.com/benjaminLedel/covey-plugin-pack",
+      "license": "MIT",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "url": "https://raw.githubusercontent.com/benjaminLedel/covey-plugin-pack/v0.23.0/manifests/productboard.json",
+          "sha256": "bbea6ed98e41b3dfd7a274f0c58e37853ee9842452d5a6186e6fb04b5b8eddfb",
+          "covey_min_version": "0.13.0",
+          "notes": "First release, for Productboard's API v2. The list actions filter and paginate through the query, which a covey before 0.13.0 drops (benjaminLedel/covey#601). Read actions, probe and poll exercised against a live workspace; the three writing actions are written from the API reference."
         }
       ]
     },
