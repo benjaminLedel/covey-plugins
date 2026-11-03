@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated_at": "2026-10-19T11:52:11Z",
+  "generated_at": "2026-11-03T23:14:43Z",
   "plugins": [
     {
       "name": "browser",
@@ -153,13 +153,20 @@
     {
       "name": "productboard",
       "label": "Productboard",
-      "description": "Product management: read features, products and customer feedback, file and link feedback, update features.",
+      "description": "Product management: read features, products and customer feedback; file, tag, attribute and link feedback and mark it processed; create and update features.",
       "category": "other",
       "kind": "custom",
       "publisher": "covey",
       "homepage": "https://github.com/benjaminLedel/covey-plugin-pack",
       "license": "MIT",
       "versions": [
+        {
+          "version": "0.2.0",
+          "url": "https://raw.githubusercontent.com/benjaminLedel/covey-plugin-pack/v0.31.0/manifests/productboard.json",
+          "sha256": "571b1c266d19e044ae20b4c52f411d17a18783aa466a12ee64f80bb9715eacea",
+          "covey_min_version": "0.13.0",
+          "notes": "Six actions for finishing the triage of a note: update_note (processed, tags, owner), set_note_customer, unlink_note, create_entity, get_entity_type and get_note_fields (benjaminLedel/covey-plugin-pack#88). Without update_note the poll on unprocessed notes woke the agent again for every note it had handled. The writing actions are written from the API v2 reference; the requests they produce were checked against covey's manifest engine, not yet against a live workspace."
+        },
         {
           "version": "0.1.0",
           "url": "https://raw.githubusercontent.com/benjaminLedel/covey-plugin-pack/v0.23.0/manifests/productboard.json",
