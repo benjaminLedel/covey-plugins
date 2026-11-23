@@ -1,13 +1,26 @@
 {
   "name": "vulndb",
   "label": "Vulnerability databases",
-  "description": "Known vulnerabilities in declared dependencies: scan a lock file against OSV.dev, fetch advisories, look up the next safe version. Needs no credentials.",
+  "description": "Known vulnerabilities in declared dependencies: scan a lock file against OSV.dev, fetch advisories, look up the next safe version. Covers npm, Packagist, Pub and Maven. Needs no credentials.",
   "category": "dev",
   "kind": "wasm",
   "publisher": "covey",
   "homepage": "https://github.com/benjaminLedel/covey-plugin-pack",
   "license": "AGPL-3.0-only",
   "versions": [
+    {
+      "version": "1.1.0",
+      "url": "https://github.com/benjaminLedel/covey-plugin-pack/releases/download/v0.38.0/vulndb.wasm",
+      "sha256": "a1da620a24c2cfcc57f2d2abf8a747cb2077fc54082a940ca76459ee8fc0bd47",
+      "covey_min_version": "0.6.0",
+      "notes": "Adds the Maven ecosystem (Java/Kotlin, Gradle): query and query_batch with groupId:artifactId, gradle.lockfile in scan_lockfile, latest_version from Maven Central. Declares repo1.maven.org as a new host — under enforced egress it has to be allowed.",
+      "build": {
+        "repo": "https://github.com/benjaminLedel/covey-plugin-pack",
+        "ref": "1d3d8f06abdbb48ab19443ba4b2c2c9326cd165d",
+        "go": "1.26.6",
+        "dir": "wasm/vulndb"
+      }
+    },
     {
       "version": "1.0.0",
       "url": "https://github.com/benjaminLedel/covey-plugin-pack/releases/download/v0.7.0/vulndb.wasm",
