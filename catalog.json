@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-23T16:16:02Z",
+  "generated_at": "2026-11-26T20:09:21Z",
   "plugins": [
     {
       "name": "browser",
@@ -227,6 +227,19 @@
       "homepage": "https://github.com/benjaminLedel/covey-plugin-pack",
       "license": "AGPL-3.0-only",
       "versions": [
+        {
+          "version": "1.2.0",
+          "url": "https://github.com/benjaminLedel/covey-plugin-pack/releases/download/v0.39.0/vulndb.wasm",
+          "sha256": "68a7f6d4ee777ea3032bbb92c1f1ce5e8b50296f5fc3f24bd7e496c1ce85d1ac",
+          "covey_min_version": "0.16.0",
+          "notes": "Declares that it needs no credentials, so covey grants its actions without a vulndb_token or vulndb_url. Needs covey 0.16.0: an older covey ignores the declaration and keeps refusing every action until both secrets are stored.",
+          "build": {
+            "repo": "https://github.com/benjaminLedel/covey-plugin-pack",
+            "ref": "f6fa8c2be0ec3cfc6c7f9879f43088c703902448",
+            "go": "1.26.6",
+            "dir": "wasm/vulndb"
+          }
+        },
         {
           "version": "1.1.0",
           "url": "https://github.com/benjaminLedel/covey-plugin-pack/releases/download/v0.38.0/vulndb.wasm",
